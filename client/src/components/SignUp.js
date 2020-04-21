@@ -7,7 +7,7 @@ import { Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
 import TextField from '@material-ui/core/TextField'
-import {API_URL} from './URLConstants'
+//import {API_URL} from './URLConstants'
 
 
 const useStyles = makeStyles(() => ({
@@ -20,7 +20,7 @@ export class SignUp extends Component {
 
     constructor(props){
         super(props);
-    
+
         this.state = {
             username: '',
             name: '',
@@ -48,12 +48,12 @@ export class SignUp extends Component {
       handleChangeName = event => {
         this.setState({ name: event.target.value });
       }
-     
+
       // This event thingy is triggered when a change is made to the password field, and sets the value of the field to the variable password
       handleChangeEmail = event => {
         this.setState({ email: event.target.value });
       }
-      
+
       // This event thingy is triggered when you click the submit button.
       handleSubmit = event => {
         event.preventDefault();
@@ -66,18 +66,18 @@ export class SignUp extends Component {
           password: this.state.password,
           email : this.state.email
         };
-        
+
         // Performing the post request, first paramter is the URL for where the API is located, second is the data we are sending, probably as a JSON packet.
         console.log("username is: " + SignupInfo.username + " and password is " + SignupInfo.password + ", and email is " + SignupInfo.email + ", name is " + SignupInfo.name);
         // Placeholder URL below
 
-        const ops = {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            data: JSON.stringify(SignupInfo) ,
-            url: API_URL + "/users/createAccount"
-        }
-        axios(ops)
+        // const ops = {
+        //     method: 'POST',
+        //     headers: { 'content-type': 'application/json' },
+        //     data: JSON.stringify(SignupInfo) ,
+        //     url: API_URL + "/users/createAccount"
+        // }
+        axios.post('/users/createAccount', SignupInfo)
           .then(res => {
               // Get the response here, do something with it here
               console.log("SIGNUP SUCCESSFUL :)");
@@ -85,7 +85,7 @@ export class SignUp extends Component {
               // On successful SignUp, we recieve a Javascript Web Token (JWT). We need to save this somewhere locally so we can use it to get authorization to load other pages.
               // Ian, I don't know how to call the continue event thing thats at the top of this page so I can replace the next line with that. Think you can do that? Also for Login.js
               this.props.nextStep();
-                
+
           }).catch((error) => {
               // There was an error sent back, so read the String sent back and act accordingly.
               if(error.response.data.message === "User already exists") {
@@ -94,13 +94,13 @@ export class SignUp extends Component {
               }
               else {
                 // If we got here, some unknown error occured.
-                console.log(ops)
+                console.log(error)
                 console.log("SOME UNKNOWN ERROR :(");
 
             }
 
           });
-          
+
       }
 
       render() {
@@ -112,7 +112,7 @@ export class SignUp extends Component {
                 spacing={3}
             >
                 <Grid item />
-                
+
                 <Grid item container spacing={3} justify='center' alignItems='center' direction='column'>
                          <Grid item xs={12} sm={7}>
                          <Typography variant='h3' align='center' className={useStyles.typographyStyles}>
@@ -167,7 +167,7 @@ export class SignUp extends Component {
 
 
                         <Grid item xs={12} sm={6}>
-                        <Button 
+                        <Button
                             variant='contained'
                             color="secondary"
                             fullWidth={true}

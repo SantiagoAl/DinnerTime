@@ -7,7 +7,7 @@ import { Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
 import TextField from '@material-ui/core/TextField'
-import {API_URL} from './URLConstants'
+//import {API_URL} from './URLConstants'
 
 
 const useStyles = makeStyles(() => ({
@@ -28,7 +28,7 @@ export class Login extends Component {
         e.preventDefault()
         this.props.prevStep()
     }
-    
+
     // This event thingy is triggered when a change is made to the username field, and sets the value of the field to the variable username
     handleChangeUsername = event => {
         this.setState({ username: event.target.value });
@@ -38,7 +38,7 @@ export class Login extends Component {
       handleChangePassword = event => {
         this.setState({ password: event.target.value });
       }
-     
+
       // This event thingy is triggered when you click the submit button.
       handleSubmit = event => {
         event.preventDefault();
@@ -49,14 +49,14 @@ export class Login extends Component {
           username: this.state.username,
           password: this.state.password
         };
-        
-        const ops = {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            data: JSON.stringify(loginInfo) ,
-            url: API_URL + "/users/login"
-        }
-        axios(ops)
+
+        // const ops = {
+        //     method: 'POST',
+        //     headers: { 'content-type': 'application/json' },
+        //     data: JSON.stringify(loginInfo) ,
+        //     url: API_URL + "/users/login"
+        // }
+        axios.post('/users/login', loginInfo)
           .then(res => {
                 // Get the response here, do something with it here
                 // On successful login, we recieve a Javascript Web Token (JWT). We need to save this somewhere locally so we can use it to get authorization to load other pages.
@@ -64,7 +64,7 @@ export class Login extends Component {
                 this.props.setJWT(res.data.token);
                 this.props.setUserId(res.data.userId);
                 this.props.nextStep();
-                 
+
           }).catch((error) => {
               // There was an error sent back, so read the String sent back and act accordingly.
               if(error.response.data.message === "Authorization Unsuccessful") {
@@ -80,13 +80,13 @@ export class Login extends Component {
                   console.log("SOME UNKNOWN ERROR :(");
               }
           });
-          
+
       }
-    
+
       // This render function controls what is displayed, it's all in HTML
     render() {
         return (
-            <Grid 
+            <Grid
                 container
                 direction='column'
                 justify='center'
@@ -94,7 +94,7 @@ export class Login extends Component {
                 spacing={3}
             >
                 <Grid item />
-                
+
                 <Grid item container spacing={3} justify='center' alignItems='center' direction='column'>
                          <Grid item xs={12} sm={7}>
                          <Typography variant='h3' align='center' className={useStyles.typographyStyles}>
@@ -113,7 +113,7 @@ export class Login extends Component {
                         />
                         </Grid>
                         <Grid item xs={6}>
-                        <TextField 
+                        <TextField
                             required
                             defaultValue=''
                             id="outlined-required"
@@ -135,7 +135,7 @@ export class Login extends Component {
                         </Button>
                         </Grid>
                         <Grid item xs={12} sm={7}>
-                        <Button 
+                        <Button
                             variant='contained'
                             color="secondary"
                             fullWidth={true}
