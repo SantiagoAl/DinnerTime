@@ -227,7 +227,7 @@ router.post('/login', (req, res, next) => {
 // This endpoint finds a specific user in the DinnerTime database using their
 // username and adds a Favorite restaurant to their 'favorites' list. It also
 // uses the 'checkAuth' middleware to check a client's authorization
-router.put('/addFavorite/:id', checkAuth, (req, res, next) => {
+router.put('/addFavorite/:id', checkAuth, cors(corsOptions), (req, res, next) => {
     const userId = req.params.id;
     // Extract information about said favorite restaurant
     const restaurantName = req.body.restaurantName;

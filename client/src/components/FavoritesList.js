@@ -82,7 +82,7 @@ export class FavoritesList extends Component {
         //             },
         //     url: API_URL + "/users/deleteFavorite/" + this.props.userId + "&" + this.state.favorites[id].restarauntId
         //   }
-          axios.delete(`/users/deleteFavorite/${this.props.userId}`, {headers:{"content-type": 'application/json', "authorization": `${this.props.JWT}`}})
+          axios.delete(`/users/deleteFavorite/${this.props.userId}&${this.state.favorites[id].restarauntId}`, {headers:{"content-type": 'application/json', "authorization": `${this.props.JWT}`}})
               .then(res => {
                 console.log(res.data)
               }).catch((error) => {

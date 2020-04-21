@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import StarRateIcon from '@material-ui/icons/StarRate'
-import {API_URL} from './URLConstants'
+//import {API_URL} from './URLConstants'
 
 const useStyles = makeStyles({
     root: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
       marginBottom: 12,
     },
   });
-  
+
 
 
 
@@ -42,7 +42,7 @@ export class RestaurantCard extends Component {
         }
     }
 
-    
+
     addToFavorites = favorite => {
 
 
@@ -53,27 +53,27 @@ export class RestaurantCard extends Component {
             rating: this.props.restaurant.rating,
             websiteUrl: this.props.restaurant.website
         }
-    
-        const ops = {
-            method: 'PUT',
-            headers: { 
-                'content-type': 'application/json',  
-                'authorization': this.props.JWT
-                    },
-            data: JSON.stringify(favRequest) ,
-            url: API_URL + "/users/addFavorite/" + this.props.userId
-        }
-        axios(ops)
+
+        // const ops = {
+        //     method: 'PUT',
+        //     headers: {
+        //         'content-type': 'application/json',
+        //         'authorization': this.props.JWT
+        //             },
+        //     data: JSON.stringify(favRequest) ,
+        //     url: API_URL + "/users/addFavorite/" + this.props.userId
+        // }
+        axios.put(`/users/addFavorite/${this.props.userId}`, favRequest, {headers:{"content-type": 'application/json', "Authorization": `${this.props.JWT}`}})
           .then(res => {
                 // Get the response here, do something with it here
                 // On successful login, we recieve a Javascript Web Token (JWT). We need to save this somewhere locally so we can use it to get authorization to load other pages.
                     console.log(res)
                     this.setState({isFavorite: true})
-    
+
           }).catch((error) => {
             console.log(error);
           });
-          
+
       }
 
     render() {
