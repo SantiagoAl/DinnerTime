@@ -136,7 +136,7 @@ router.get('/confirmEmail/:id', (req, res, next) => {
             // If the query does not return anything then the user is not
             // present within the database
             if (user.length < 1) {
-                res.redirect('http://localhost:3000')
+                res.redirect('https://fierce-everglades-81330.herokuapp.com')
             }
             // If the user exists within the database and the email has not been
             // confirmed, then confirm the user's email
@@ -146,16 +146,16 @@ router.get('/confirmEmail/:id', (req, res, next) => {
                 // Save the changes to the user within the database, while also
                 // sending back a confirmation message
                 user.save()
-                    .then(() => res.redirect('http://localhost:3000'))
-                    .catch(err => res.redirect('http://localhost:3000'));
+                    .then(() => res.redirect('https://fierce-everglades-81330.herokuapp.com'))
+                    .catch(err => res.redirect('https://fierce-everglades-81330.herokuapp.com'));
             }
             // Hitting this statement means the user already confirmed their
             // email
             else {
-                res.redirect('http://localhost:3000')
+                res.redirect('https://fierce-everglades-81330.herokuapp.com')
             }
         })
-        .catch(err => res.redirect('http://localhost:3000'));
+        .catch(err => res.redirect('https://fierce-everglades-81330.herokuapp.com'));
 });
 
 // This endpoint is used when login is attempted by the User
