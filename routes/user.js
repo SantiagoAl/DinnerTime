@@ -19,7 +19,7 @@ const templates = require('../middleware/email.template');
 const cors = require('cors');
 
 var corsOptions = {
-    origin: 'https://fierce-everglades-81330.herokuapp.com',
+    origin: "*",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     optionsSuccessStatus: 200
 }
