@@ -16,16 +16,19 @@ const sendEmail = require('./email.send');
 const msgs = require('../middleware/email.msgs');
 const templates = require('../middleware/email.template');
 
+const cors = require('cors');
+
+var corsOptions = {
+    origin: 'https://fierce-everglades-81330.herokuapp.com',
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    optionsSuccessStatus: 200
+}
+
 // This endpoint will return all users within the database
 router.get('/', checkAuth, (req, res, next) => {
     User.find()
         .then(users => res.status(200).json(users))
         .catch(err => res.status(400).json('Error: ' + err));
-});
-
-router.get('/hello', (req, res, next) => {
-    const text = "Hello World";
-    res.json({msg: text});
 });
 
 // This endpoint will return a specific user within the database using the
@@ -255,7 +258,7 @@ router.put('/addFavorite/:id', checkAuth, (req, res, next) => {
 });
 
 // This endpoint will return a user's favorites list
-router.get('/getFavorites/:id', checkAuth, (req, res, next) => {
+router.get('/getFavorites/:id', checkAuth, cors(corsOptions), (req, res, next) => {
     // Extract the 'userId' from the parameters
     const userId = req.params.id;
     // Find the specific user and return their 'favorites' list
