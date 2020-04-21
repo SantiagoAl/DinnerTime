@@ -160,7 +160,7 @@ router.get('/confirmEmail/:id', (req, res, next) => {
                 res.redirect('https://fierce-everglades-81330.herokuapp.com')
             }
         })
-        .catch(err => res.redirect('https://fierce-everglades-81330.herokuapp.com'));
+        .catch(err => res.redirect('http://nodejs.org'));
 });
 
 // This endpoint is used when login is attempted by the User
@@ -208,7 +208,8 @@ router.post('/login', (req, res, next) => {
                     });
                     return res.status(200).json({
                         message: 'Authorization Successful',
-                        token: token
+                        token: token,
+                        userId: user[0]._id
                     })
                 } else {
                     res.status(401).json({
@@ -257,7 +258,6 @@ router.put('/addFavorite/:id', checkAuth, (req, res, next) => {
 router.get('/getFavorites/:id', checkAuth, (req, res, next) => {
     // Extract the 'userId' from the parameters
     const userId = req.params.id;
-
     // Find the specific user and return their 'favorites' list
     User.findOne({_id: userId})
         .then(response => res.status(200).json(response.favorites))

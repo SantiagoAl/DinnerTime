@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Button, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import FavoriteCard from './FavoriteCard'
-import {API_URL} from './URLConstants'
+//import {API_URL} from './URLConstants'
 
 
 
@@ -18,7 +18,7 @@ export class FavoritesList extends Component {
 
     constructor(props){
         super(props);
-    
+
         this.state = {
             favorites: [
             ]
@@ -36,15 +36,15 @@ export class FavoritesList extends Component {
 
     loadFavorites = () => {
 
-        const ops = {
-            method: 'GET',
-            headers: { 
-                'content-type': 'application/json',  
-                'authorization': this.props.JWT
-                    },
-            url: API_URL + "/users/getFavorites/" + this.props.userId
-          }
-          axios(ops)
+        // const ops = {
+        //     method: 'GET',
+        //     headers: {
+        //         'content-type': 'application/json',
+        //         'authorization': this.props.JWT
+        //             },
+        //     url: API_URL + "/users/getFavorites/" + this.props.userId
+        //   }
+          axios.get(`/users/getFavorites/${this.props.userId}`, {headers:{"content-type": 'application/json', "Authorization": `${this.props.JWT}`}})
               .then(res => {
                     // Favorites are here!
                     console.log("res is " + JSON.stringify(res));
@@ -68,27 +68,27 @@ export class FavoritesList extends Component {
               }).catch((error) => {
                   // There was an error sent back, so read the String sent back and act accordingly.
                   console.log(error);
-              }); 
+              });
     }
-    
+
     deleteFavorite = (id) => {
 
         console.log("delteting...")
-        const ops = {
-            method: 'DELETE',
-            headers: { 
-                'content-type': 'application/json',  
-                'authorization': this.props.JWT
-                    },
-            url: API_URL + "/users/deleteFavorite/" + this.props.userId + "&" + this.state.favorites[id].restarauntId
-          }
-          axios(ops)
+        // const ops = {
+        //     method: 'DELETE',
+        //     headers: {
+        //         'content-type': 'application/json',
+        //         'authorization': this.props.JWT
+        //             },
+        //     url: API_URL + "/users/deleteFavorite/" + this.props.userId + "&" + this.state.favorites[id].restarauntId
+        //   }
+          axios.delete(`/users/deleteFavorite/${this.props.userId}`, {headers:{"content-type": 'application/json', "authorization": `${this.props.JWT}`}})
               .then(res => {
                 console.log(res.data)
               }).catch((error) => {
                   // There was an error sent back, so read the String sent back and act accordingly.
                   console.log(error);
-              }); 
+              });
     }
 
     removeFav = (arrId) => {
@@ -109,7 +109,7 @@ export class FavoritesList extends Component {
                 spacing={3}
             >
                 <Grid item />
-                
+
                 <Grid item container spacing={3} justify='center'>
                          <Grid item xs={12} sm={7}>
                          <Typography variant='h5' align='center' className={useStyles.typographyStyles}>
@@ -118,9 +118,9 @@ export class FavoritesList extends Component {
                         </Grid>
 
 						{/* Friend Cards */}
-                        { this.state.favorites.map((favorite) => 
+                        { this.state.favorites.map((favorite) =>
                             <Grid item key={favorite.arrId} xs={12} sm={6}>
-                                <FavoriteCard 
+                                <FavoriteCard
                                     favorite={favorite}
                                     JWT={this.props.JWT}
                                     key={favorite.arrId}
@@ -129,15 +129,15 @@ export class FavoritesList extends Component {
                             </Grid>
                         )}
 
-                            
+
                         {/* Next and Back Buttons */}
-                        <Grid item container xs={12} 
+                        <Grid item container xs={12}
                             justify='center'
                             alignItems='stretch'
                             spacing={3}
-                        >        
+                        >
                                 <Grid item xs={6} sm={4}>
-                                <Button 
+                                <Button
                                     variant='contained'
                                     color="secondary"
                                     fullWidth={true}
