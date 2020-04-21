@@ -23,6 +23,11 @@ router.get('/', checkAuth, (req, res, next) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.get('/hello', (req, res, next) => {
+    const text = "Hello World";
+    res.json({msg: text});
+});
+
 // This endpoint will return a specific user within the database using the
 // username
 router.get('/findUser', checkAuth, (req, res, next) => {
