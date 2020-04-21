@@ -9,8 +9,14 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+var corsOptions = {
+    origin: 'https://fierce-everglades-81330.herokuapp.com',
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    optionsSuccessStatus: 200
+}
+
 // MiddleWare
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json()); // Allows us to parse JSON
 
 // Setup connection to MongoDB
