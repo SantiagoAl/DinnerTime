@@ -53,16 +53,7 @@ export class RestaurantCard extends Component {
             rating: this.props.restaurant.rating,
             websiteUrl: this.props.restaurant.website
         }
-
-        // const ops = {
-        //     method: 'PUT',
-        //     headers: {
-        //         'content-type': 'application/json',
-        //         'authorization': this.props.JWT
-        //             },
-        //     data: JSON.stringify(favRequest) ,
-        //     url: API_URL + "/users/addFavorite/" + this.props.userId
-        // }
+        
         axios.put(`/users/addFavorite/${this.props.userId}`, favRequest, {headers:{"content-type": 'application/json', "Authorization": `${this.props.JWT}`}})
           .then(res => {
                 // Get the response here, do something with it here

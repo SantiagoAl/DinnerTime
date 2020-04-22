@@ -70,13 +70,7 @@ export class SignUp extends Component {
         // Performing the post request, first paramter is the URL for where the API is located, second is the data we are sending, probably as a JSON packet.
         console.log("username is: " + SignupInfo.username + " and password is " + SignupInfo.password + ", and email is " + SignupInfo.email + ", name is " + SignupInfo.name);
         // Placeholder URL below
-
-        // const ops = {
-        //     method: 'POST',
-        //     headers: { 'content-type': 'application/json' },
-        //     data: JSON.stringify(SignupInfo) ,
-        //     url: API_URL + "/users/createAccount"
-        // }
+        
         axios.post('/users/createAccount', SignupInfo)
           .then(res => {
               // Get the response here, do something with it here

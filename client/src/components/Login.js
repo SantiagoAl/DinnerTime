@@ -49,13 +49,7 @@ export class Login extends Component {
           username: this.state.username,
           password: this.state.password
         };
-
-        // const ops = {
-        //     method: 'POST',
-        //     headers: { 'content-type': 'application/json' },
-        //     data: JSON.stringify(loginInfo) ,
-        //     url: API_URL + "/users/login"
-        // }
+        
         axios.post('/users/login', loginInfo)
           .then(res => {
                 // Get the response here, do something with it here

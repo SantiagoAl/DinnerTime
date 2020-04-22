@@ -35,15 +35,7 @@ export class FavoritesList extends Component {
     }
 
     loadFavorites = () => {
-
-        // const ops = {
-        //     method: 'GET',
-        //     headers: {
-        //         'content-type': 'application/json',
-        //         'authorization': this.props.JWT
-        //             },
-        //     url: API_URL + "/users/getFavorites/" + this.props.userId
-        //   }
+        
           axios.get(`/users/getFavorites/${this.props.userId}`, {headers:{"content-type": 'application/json', "Authorization": `${this.props.JWT}`}})
               .then(res => {
                     // Favorites are here!
