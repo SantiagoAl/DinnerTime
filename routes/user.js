@@ -98,40 +98,6 @@ router.post('/createAccount', (req, res, next) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// // This is the endpoint that will be hit by the link sent to the user within the
-// // confirmation email
-// router.get('/confirmEmail/:id', (req, res, next) => {
-//     // Extract the 'userId' from the parameters list
-//     const userId = req.params.id;
-//
-//     // Find the user in the DinnerTime database based on the 'userId'
-//     User.findOne({_id: userId})
-//         .then(user => {
-//             // If the query does not return anything then the user is not
-//             // present within the database
-//             if (user.length < 1) {
-//                 res.status(400).json({msg: msgs.couldNotFind})
-//             }
-//             // If the user exists within the database and the email has not been
-//             // confirmed, then confirm the user's email
-//             else if (user && !user.emailConfirmed) {
-//                 user.emailConfirmed = true;
-//
-//                 // Save the changes to the user within the database, while also
-//                 // sending back a confirmation message
-//                 user.save()
-//                     .then(() => res.status(200).json({msg: msgs.confirmed}))
-//                     .catch(err => res.status(400).json('Error: ' + err));
-//             }
-//             // Hitting this statement means the user already confirmed their
-//             // email
-//             else {
-//                 res.status(200).json({msg: msgs.alreadyConfirmed})
-//             }
-//         })
-//         .catch(err => res.status(400).json('Error: ' + err));
-// });
-
 // This is the endpoint that will be hit by the link sent to the user within the
 // confirmation email
 router.get('/confirmEmail/:id', (req, res, next) => {
@@ -144,7 +110,7 @@ router.get('/confirmEmail/:id', (req, res, next) => {
             // If the query does not return anything then the user is not
             // present within the database
             if (user.length < 1) {
-                res.redirect('https://fierce-everglades-81330.herokuapp.com')
+                res.status(400).json({msg: msgs.couldNotFind})
             }
             // If the user exists within the database and the email has not been
             // confirmed, then confirm the user's email
@@ -154,16 +120,16 @@ router.get('/confirmEmail/:id', (req, res, next) => {
                 // Save the changes to the user within the database, while also
                 // sending back a confirmation message
                 user.save()
-                    .then(() => res.redirect('https://fierce-everglades-81330.herokuapp.com'))
-                    .catch(err => res.redirect('https://fierce-everglades-81330.herokuapp.com'));
+                    .then(() => res.status(200).json({msg: msgs.confirmed}))
+                    .catch(err => res.status(400).json('Error: ' + err));
             }
             // Hitting this statement means the user already confirmed their
             // email
             else {
-                res.redirect('https://fierce-everglades-81330.herokuapp.com')
+                res.status(200).json({msg: msgs.alreadyConfirmed})
             }
         })
-        .catch(err => res.redirect('http://nodejs.org'));
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 // This endpoint is used when login is attempted by the User
